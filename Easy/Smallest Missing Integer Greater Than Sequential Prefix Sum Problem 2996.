@@ -1,21 +1,24 @@
 class Solution {
-    public int missingInteger(int[] A) {
-        int n = A.length;
-        Set<Integer> seen = new HashSet<>(n);
+    public int missingInteger(int[] nums) {
+        if (nums.length==1)return nums[0]+1;
+        int sum=nums[0];
+        int maxSum=sum;
+        Set <Integer> mp=new HashSet<>();
+        mp.add(nums[0]);
+        boolean sumUpdation=true;
+        for (int i=1;i<nums.length;i++){
+            if (nums[i]==nums[i-1]+1 && sumUpdation){
+                sum+=nums[i];
 
-        for (int num : A)
-            seen.add(num);
-        int sum = A[0];
-
-        for (int i = 1; i < n; i++) {
-            if (A[i] == A[i - 1] + 1)
-                sum += A[i];
-            else break;
+            }
+            else{
+                sumUpdation=false;
+            }
+            maxSum=Math.max(sum, maxSum);
+            mp.add(nums[i]);
         }
-
-        while (seen.contains(sum))
-            sum++;
-
-        return sum;
+        while (mp.contains(maxSum))maxSum++;
+        return maxSum;
+        
     }
 }
