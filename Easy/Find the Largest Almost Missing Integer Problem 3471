@@ -1,0 +1,40 @@
+class Solution {
+    public int largestInteger(int[] nums, int k) {
+
+        if (k==nums.length){
+            int max=nums[0];
+            for (int i:nums){
+                if (i>max)max=i;
+            }
+            return max;
+        }
+        else if(k==1){
+            Map <Integer,Integer> m=new HashMap<Integer,Integer>();
+            for (int i=0;i<nums.length;i++){
+                m.put (nums[i],m.getOrDefault(nums[i],0)+1);
+            }
+            int max=-1;
+            for (Map.Entry<Integer,Integer> entry:m.entrySet()){
+                if (entry.getValue()==1){
+                    if (entry.getKey()>max)max=entry.getKey();
+                }
+            }
+            return max;
+        }
+        else{
+            int countf=-1;
+        int counte=-1;
+        for (int i=0;i<nums.length;i++){
+            if (nums[nums.length-1]==nums[i])counte++;
+            if (nums[i]==nums[0])countf++;
+        }       
+        if (countf==0 && counte==0) {
+            if (nums[nums.length-1]>nums[0])return nums[nums.length-1];
+            else return nums[0];
+        }
+        else if (countf==0) return nums[0];
+        else if (counte==0) return nums[nums.length-1];
+        }
+        return -1;
+    }
+}
